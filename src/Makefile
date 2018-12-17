@@ -1,4 +1,4 @@
-CPP      = GNU_G++
+CPP      = g++
 CPP_FLAG = -g -m64 -Wall -O2 -DLINUX
 RM       = rm -f
 
@@ -18,7 +18,7 @@ all: $(bin)
 	@echo "All made!"
 
 $(bin): $(objs)
-	#$(CPP) $(CPP_FLAG) -o $@ $(objs) $(LIBS)
+#$(CPP) $(CPP_FLAG) -o $@ $(objs) $(LIBS)
 	$(CPP) $(CPP_FLAG) -o $@ $(objs)
 
 .cpp.o:
