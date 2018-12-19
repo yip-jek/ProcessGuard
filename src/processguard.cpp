@@ -15,7 +15,7 @@ ProcessGuard::~ProcessGuard()
 
 std::string ProcessGuard::Version()
 {
-	return ("ProcessGuard version 1.5.0 released. Compiled at " __TIME__ " on " __DATE__);
+	return ("ProcessGuard version 1.6.0 released. Compiled at " __TIME__ " on " __DATE__);
 }
 
 void ProcessGuard::Run()

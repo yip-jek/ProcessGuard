@@ -146,7 +146,6 @@ bool Log::Output(const char* format, ...)
 	if ( CheckFileMaximum(str_out) )
 	{
 		m_bfLogger.Write(str_out);
-		m_bfLogger.Close();
 
 		OpenNewLogger();
 	}
@@ -175,9 +174,13 @@ bool Log::CheckFileMaximum(std::string& tail)
 
 void Log::OpenNewLogger()
 {
+	if ( m_bfLogger.IsOpen() )
+	{
+		m_bfLogger.Close();
+	}
+
 	int log_id = 0;
 	std::string fullLogPath;
-
 	const std::string DAY_TIME = SimpleTime::Now().DayTime8();
 
 	do
