@@ -3,10 +3,8 @@
 enum ERROR_CODE_DEF
 {
 	// Log error code
-	LG_FILE_PATH_EMPTY       = -1000001,
-	LG_FILE_PATH_INVALID     = -1000002,
-	LG_INIT_FAIL             = -1000003,
-	LG_OPEN_FILE_FAIL        = -1000004,
+	LG_INIT_FAIL             = -1000001,
+	LG_OPEN_FILE_FAIL        = -1000002,
 
 	// Config error code
 	CFG_FILE_INVALID         = -1001001,

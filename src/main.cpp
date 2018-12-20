@@ -43,20 +43,14 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-	Log::SetLogFilePrefix("PGuard");
-	if ( !Log::SetLogID(log_id) )
-	{
-		std::cerr << "[ERROR] Invalid log ID: " << log_id << std::endl;
-		return -1;
-	}
+	LogStrategy log_strategy;
+	log_strategy.log_prefix = "PGuard";
+	log_strategy.log_id     = log_id;
 
-	std::string              str_head;
-	std::vector<std::string> v_headers;
-
+	std::string str_head;
 	PubStr::SetFormatString(str_head, "%s: PID=[%d]", (is_daemon?"守护进程":"一般进程"), getpid());
-	v_headers.push_back(str_head);
-	v_headers.push_back(ProcessGuard::Version());
-	Log::ImportHeaders(v_headers);
+	log_strategy.log_headers.push_back(str_head);
+	log_strategy.log_headers.push_back(ProcessGuard::Version());
 
 	AutoLogger aLog;
 	Log* pLog = aLog.Get();
@@ -67,14 +61,17 @@ int main(int argc, char* argv[])
 		Config cfg;
 		cfg.SetCfgFile(argv[3]);
 		cfg.RegisterItem("LOG", "PATH");
-		cfg.RegisterItem("LOG", "MAX_LINE");
 		cfg.RegisterItem("LOG", "MAX_SIZE");
+		cfg.RegisterItem("LOG", "MAX_LINE");
+		cfg.RegisterItem("LOG", "INTERVAL");
 		cfg.ReadConfig();
 
-		Log::SetFileMaxLine(cfg.GetCfgLongVal("LOG", "MAX_LINE"));
-		Log::ResetFileSize(cfg.GetCfgLongVal("LOG", "MAX_SIZE"));
-		pLog->SetPath(cfg.GetCfgValue("LOG", "PATH"));
-		pLog->Init();
+		log_strategy.log_path = cfg.GetCfgValue("LOG", "PATH");
+		log_strategy.max_size = cfg.GetCfgLongVal("LOG", "MAX_SIZE");
+		log_strategy.max_line = cfg.GetCfgLongVal("LOG", "MAX_LINE");
+		log_strategy.interval = cfg.GetCfgValue("LOG", "INTERVAL");
+
+		pLog->Init(log_strategy);
 		std::cout << ProcessGuard::Version() << std::endl;
 
 		ProcessGuard pg;

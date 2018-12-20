@@ -1,6 +1,7 @@
 #pragma once
 
 #include <set>
+#include <thread>
 #include "simpletime.h"
 
 // 计时器接口类
@@ -31,9 +32,6 @@ public:
 	static const char* const S_MINUTE_TYPE_W;			// 分钟间隔类型
 	static const char* const S_MINUTE_TYPE_F;			// 分钟间隔类型
 
-	// 是否有效的时间间隔类型
-	static bool IsIntervalTypeValid(IntervalType type);
-
 	// 时间间隔类型
 	enum IntervalType
 	{
@@ -45,15 +43,39 @@ public:
 	};
 
 public:
+	typedef int (*pFunDifferTime)(const SimpleTime&, const SimpleTime&);
+
+	// 是否有效的时间间隔类型
+	static bool IsIntervalTypeValid(IntervalType type);
+
+	// 月时间之差
+	static int DifferMonthTime(const SimpleTime& st_beg, const SimpleTime& st_end);
+
+	// 日时间之差
+	static int DifferDayTime(const SimpleTime& st_beg, const SimpleTime& st_end);
+
+	// 小时时间之差
+	static int DifferHourTime(const SimpleTime& st_beg, const SimpleTime& st_end);
+
+	// 分钟时间之差
+	static int DifferMinuteTime(const SimpleTime& st_beg, const SimpleTime& st_end);
+
+public:
 	// 开始计时
-	void Start();
+	bool Start();
 
 	// 结束计时
-	void Stop();
+	bool Stop();
+
+	// 运行状态
+	bool IsRunning() const;
 
 	// 设置时间间隔类型
 	bool SetIntervalType(IntervalType type);
 	bool SetIntervalType(const std::string& str_type);
+
+	// 获取时间字串
+	std::string GetIntervalTypeTime() const;
 
 	// 注册计时器接口
 	void Register(TimerInterface* pTimer);
@@ -75,6 +97,8 @@ private:
 	bool                      m_bRunning;				// 是否运行
 	SimpleTime                m_sRecordTime;			// 记录时间点
 	IntervalType              m_iType;					// 时间间隔类型
+	pFunDifferTime            m_pfDifferTime;			// 时间差值
+	std::thread*              m_pThread;				// 线程
 	std::set<TimerInterface*> m_sTimers;				// 计时器接口集
 };
 

@@ -7,7 +7,7 @@ APP_INCL = $(APP_DIR)/include
 BIN_DIR  = $(APP_DIR)/bin
 
 INCLS = -I$(APP_INCL)
-#LIBS = 
+LIBS  = -lpthread
 
 srcs = $(wildcard *.cpp)
 objs = $(srcs:.cpp=.o)
@@ -18,8 +18,7 @@ all: $(bin)
 	@echo "All made!"
 
 $(bin): $(objs)
-#$(CPP) $(CPP_FLAG) -o $@ $(objs) $(LIBS)
-	$(CPP) $(CPP_FLAG) -o $@ $(objs)
+	$(CPP) $(CPP_FLAG) -o $@ $(objs) $(LIBS)
 
 .cpp.o:
 	$(CPP) $(CPP_FLAG) $(INCLS) -c $<
