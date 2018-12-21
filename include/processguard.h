@@ -6,7 +6,7 @@
 class ProcessGuard
 {
 public:
-	ProcessGuard();
+	ProcessGuard(const std::string& cfg_file);
 	~ProcessGuard();
 
 	static std::string Version();
@@ -15,6 +15,17 @@ public:
 	void Run();
 
 private:
-	Log* m_pLog;
+	void LoadConfig();
+	void Init();
+	void GuardProcess();
+	bool CheckProcessDead();
+	bool CheckTimeUp();
+	void RestartProcess();
+
+private:
+	Log*        m_pLog;
+	std::string m_sCfgFile;
+
+private:
 };
 
