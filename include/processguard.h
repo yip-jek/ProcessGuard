@@ -17,6 +17,8 @@ public:
 private:
 	void LoadConfig();
 	void Init();
+	void InitProcRun();
+	void InitCommand();
 	void GuardProcess();
 	bool CheckProcessDead();
 	bool CheckTimeUp();
@@ -27,5 +29,11 @@ private:
 	std::string m_sCfgFile;
 
 private:
+	unsigned int m_chktime;
+	long long    m_recTime;
+	std::string  m_sProcName;
+	std::string  m_sFeatures;
+	std::string  m_sCommand;
+	std::string  m_sProcRun;
 };
 

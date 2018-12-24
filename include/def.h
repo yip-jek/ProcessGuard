@@ -15,5 +15,7 @@ enum ERROR_CODE_DEF
 
 	// ProcessGuard error code
 	PG_GSIGNAL_INIT_FAILED   = -2000001,
+	PG_INIT_FAILED           = -2000002,
+	PG_CHK_PROC_FAILED       = -2000003,
 };
 

@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 		pLog->Init(log_strategy);
 		std::cout << ProcessGuard::Version() << std::endl;
 
-		ProcessGuard pg;
+		ProcessGuard pg(argv[3]);
 		pg.Run();
 	}
 	catch ( Exception& ex )
