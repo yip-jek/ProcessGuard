@@ -23,7 +23,7 @@ ProcessGuard::~ProcessGuard()
 
 std::string ProcessGuard::Version()
 {
-	return ("ProcessGuard version 2.0.0 released. Compiled at " __TIME__ " on " __DATE__);
+	return ("ProcessGuard version 2.0.1 released. Compiled at " __TIME__ " on " __DATE__);
 }
 
 void ProcessGuard::Run()
@@ -58,15 +58,15 @@ void ProcessGuard::LoadConfig()
 	m_sProcName = cfg.GetCfgValue("COMMON", "PROCESS_NAME");
 	m_sProcRun  = cfg.GetCfgValue("COMMON", "PROCESS_RUN");
 
-	m_pLog->Output("[COMMON] CHECK_TIME  =[%u]", m_chktime);
-	m_pLog->Output("[COMMON] PROCESS_NAME=[%s]", m_sProcName.c_str());
-	m_pLog->Output("[COMMON] PROCESS_RUN =[%s]", m_sProcRun.c_str());
+	m_pLog->Output("[COMMON] CHECK_TIME   = [%u]", m_chktime);
+	m_pLog->Output("[COMMON] PROCESS_NAME = [%s]", m_sProcName.c_str());
+	m_pLog->Output("[COMMON] PROCESS_RUN  = [%s]", m_sProcRun.c_str());
 
 	// 相关特征值可为空
 	try
 	{
 		m_sFeatures = cfg.GetCfgValue("COMMON", "FEATURES");
-		m_pLog->Output("[COMMON] FEATURES    =[%s]", m_sFeatures.c_str());
+		m_pLog->Output("[COMMON] FEATURES     = [%s]", m_sFeatures.c_str());
 	}
 	catch ( const Exception& ex )
 	{
@@ -138,7 +138,7 @@ void ProcessGuard::GuardProcess()
 			}
 			else
 			{
-				m_pLog->Output(">>> Restart the process succeed.");
+				m_pLog->Output(">>> Restart the process successfully.");
 			}
 		}
 		else
