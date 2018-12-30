@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	// CFG_FILE   ：配置文件
 	if ( argc != 4 )
 	{
-		std::cerr << "[usage] " << argv[0] << "DAEMON_FLAG LOG_ID CFG_FILE" << std::endl;
+		std::cerr << "[usage] " << argv[0] << " DAEMON_FLAG LOG_ID CFG_FILE" << std::endl;
 		return -1;
 	}
 
